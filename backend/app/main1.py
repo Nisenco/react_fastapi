@@ -1,9 +1,9 @@
 from fastapi import FastAPI, Depends, HTTPException, status, Request
 import time
+import uvicorn
 from typing import Optional
 from pydantic import BaseModel
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-import uvicorn
 from passlib.context import CryptContext
 from jose import JWTError, jwt
 from datetime import datetime, timedelta
