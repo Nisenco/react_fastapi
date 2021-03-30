@@ -1,3 +1,6 @@
+## frontend 目录
+### 全部使用hook是创建组件及页面
+### 项目使用redux-saga react-router 分别实现 项目数据的存储和路由
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
