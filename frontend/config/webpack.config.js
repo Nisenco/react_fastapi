@@ -64,6 +64,9 @@ const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 
+const lessRegex = /\.less$/;
+const lessModuleRegex = /\.module\.less$/;
+
 const hasJsxRuntime = (() => {
   if (process.env.DISABLE_NEW_JSX_TRANSFORM === 'true') {
     return false;
@@ -436,7 +439,7 @@ module.exports = function (webpackEnv) {
             // Process any JS outside of the app with Babel.
             // Unlike the application JS, we only compile the standard ES features.
             {
-              test: /\.(js|mjs)$/,
+              test: /\.(js|mjs|jsx|ts|tsx)$/,
               exclude: /@babel(?:\/|\\{1,2})runtime/,
               loader: require.resolve('babel-loader'),
               options: {
@@ -458,6 +461,30 @@ module.exports = function (webpackEnv) {
                 // show incorrect code and set breakpoints on the wrong lines.
                 sourceMaps: shouldUseSourceMap,
                 inputSourceMap: shouldUseSourceMap,
+                // customize: require.resolve(
+                //     "babel-preset-react-app/webpack"
+                // ),
+                plugins: [
+                    [
+                      "import",
+                      {
+                        "libraryName": "antd",
+                        "libraryDirectory": "lib",
+                        "style": true
+                      },
+                      "ant"
+                    ],
+                    [
+                      "@babel/plugin-proposal-decorators", // 启用装饰器
+                      {
+                        "legacy": true
+                      }
+                    ]
+                    // [
+                    //     "import",
+                    //   {libraryName:'antd',style:'css'}
+                    // ]
+                ]
               },
             },
             // "postcss" loader applies autoprefixer to our CSS.
@@ -533,6 +560,36 @@ module.exports = function (webpackEnv) {
                 },
                 'sass-loader'
               ),
+            },
+              {
+              test: lessRegex,
+              exclude: lessModuleRegex,
+              use: getStyleLoaders(
+                {
+                  importLoaders: 2,
+                  sourceMap: isEnvProduction && shouldUseSourceMap
+                },
+                'less-loader',
+                {
+                  javascriptEnabled: true
+                }
+              ),
+              sideEffects: true
+            },
+            {
+              test: lessModuleRegex,
+              use: getStyleLoaders(
+                {
+                  importLoaders: 2,
+                  sourceMap: isEnvProduction && shouldUseSourceMap,
+                  modules: true,
+                  getLocalIdent: getCSSModuleLocalIdent
+                },
+                'less-loader',
+                {
+                  javascriptEnabled: true
+                }
+              )
             },
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.
