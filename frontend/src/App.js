@@ -1,12 +1,12 @@
-import './App.css';
 import {Button} from 'antd'
+import './App.css';
+import RouterIndex from "./routers";
+
 
 function App() {
     return (
         <div className="App header">
-            <Button type="primary">测试</Button>
-            Edit src/App.js and save to reload.
-            <div>dsfasdfa</div>
+            <RouterIndex />
         </div>
     );
 }

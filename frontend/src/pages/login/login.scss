@@ -1,0 +1,16 @@
+.login-container {
+  min-height: 100vh;
+  background-color: aliceblue;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  .login-form {
+    width: 20%;
+    margin-top: 15%;
+    .ant-form{
+      box-shadow: 10px 8px 5px #ece7e7;
+      border: 1px solid #e9dddd;
+      padding: 20px 20px 20px 0;
+    }
+  }
+}
