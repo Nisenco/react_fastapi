@@ -66,7 +66,8 @@ def create_item_for_user(
 def read_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     items = crud.get_items(db, skip=skip, limit=limit)
     return items
-
-
+# def get_application():
+# #
+# app = get_application()
 if __name__ == '__main__':
-    uvicorn.run("main:app", host="127.0.0.1", reload=True, port=8000)
+    uvicorn.run(app, host="127.0.0.1", reload=True, port=8000,debug=True)
