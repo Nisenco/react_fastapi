@@ -2,7 +2,7 @@ from typing import List
 from fastapi import Depends, FastAPI, HTTPException, Request, Response
 from sqlalchemy.orm import Session
 from app.db import crud, models, schemas
-from app.db.database import SessionLocal, engine
+from app.db.orm import SessionLocal, engine
 import uvicorn
 
 models.Base.metadata.create_all(bind=engine)

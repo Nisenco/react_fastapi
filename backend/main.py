@@ -1,10 +1,6 @@
-from typing import List
-from fastapi import Depends, FastAPI, HTTPException, Request, Response
-from sqlalchemy.orm import Session
-from app.db import crud, models, schemas
-from app.db.database import SessionLocal, engine
-from app.config import settings
-from app.api.v1 import router as api_router
+from fastapi import FastAPI
+from app.config.config import settings
+from app.api import router as api_router
 import uvicorn
 
 
