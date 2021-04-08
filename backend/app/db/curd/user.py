@@ -5,3 +5,9 @@ from app.db.models import User
 
 def get_user_by_account(db_session: Session, account: str) -> Optional[User]:
     return db_session.query(User).filter(User.account == account).first()
+
+
+def register_account(db_session: Session, user: User) -> User:
+
+    pass
+

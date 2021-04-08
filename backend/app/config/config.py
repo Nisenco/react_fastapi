@@ -3,12 +3,12 @@ from pydantic import BaseModel, BaseSettings
 
 
 class MfaParamsModel(BaseModel):
-    mfa_url: str
-    oauth_type: int
-    share_secret: str
-    app_name: str
-    static_password: str
-    api_gateway_id: str
+    mfa_url: Optional[str] = "12"
+    oauth_type: Optional[int] = 12
+    share_secret: Optional[str] = '12'
+    app_name: Optional[str] = '12'
+    static_password: Optional[str] = '12'
+    api_gateway_id: Optional[str]
 
 
 class Settings(BaseSettings):
@@ -39,8 +39,8 @@ class Settings(BaseSettings):
     s3_region: str
     s3_aws_access_key_id: str
     s3_aws_secret_access_key: str
-    admin_user_mapping: Dict
-    mfa_params: MfaParamsModel
+    admin_user_mapping: dict
+    mfa_params: dict
     secret_key: str
     access_token_expire_minutes: int
     refresh_token_expire_minutes: int

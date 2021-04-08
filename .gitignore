@@ -4,3 +4,11 @@
 /.idea
 # build 打包文件
 /build
+/backend/app/config/.env
+backend/__pycache__/
+backend/app/api/__pycache__/
+backend/app/api/v1/__pycache__/
+backend/app/api/v1/auth/__pycache__/
+backend/app/db/curd/__pycache__/
+backend/app/schemas/__pycache__/
+backend/app/utils/__pycache__/

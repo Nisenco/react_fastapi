@@ -66,5 +66,10 @@ def login(
     "/password",
     summary='后台管理系统-密码更新'
 )
-def update_password():
+def update_password(
+        request: Request,
+        response: Response,
+        login_info: LoginModel,
+        db_session: Session = Depends(get_db_session)
+):
     pass
