@@ -5,24 +5,11 @@ from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from app.db.orm import get_db_session
 from app.schemas.schemas_login import LoginModel
-from app.db.curd.user import get_user_by_account
+from app.db.curd.user import get_user_by_account, change_password_by_account
 from app.utils.security import make_password
+from app.utils.common import make_response
 
 router = APIRouter()
-
-
-@router.post(
-    "/openapi_login",
-    summary='OpenAPI后台登录'
-)
-# 显示swager
-def openapi_login(
-        request: Request,
-        response: Response,
-        login_info: OAuth2PasswordRequestForm = Depends(),
-        db_session: Session = Depends(get_db_session)
-):
-    pass
 
 
 @router.post(
@@ -35,17 +22,6 @@ def login(
         login_info: LoginModel,
         db_session: Session = Depends(get_db_session)
 ):
-    def make_old_password(old_password):
-        import hashlib
-        PASSWORD_SALT = "asdfaskfdhjasfkjas"
-        SECRET_KEY = PASSWORD_SALT
-        password = SECRET_KEY + old_password
-        # 2.开始加密
-        sha1_obj = hashlib.sha1()
-        sha1_obj.update(password.encode())
-        ret = sha1_obj.hexdigest()
-        return ret
-
     # 获取用户ip地址
     client_ip = request.client.host
     # 获取用户信息
@@ -53,7 +29,13 @@ def login(
     if user is None:
         valid = False
     else:
-        valid = False
+        # 通过——认证成功
+        if make_password(login_info.password) == user.hashed_password:
+            valid = True
+        # 未通过——认证失败
+        else:
+            valid = False
+
     login_session_id = uuid.uuid4().hex
     m = hashlib.md5()
     m.update(login_session_id.encode("utf-8"))
@@ -72,4 +54,10 @@ def update_password(
         login_info: LoginModel,
         db_session: Session = Depends(get_db_session)
 ):
-    pass
+    user = get_user_by_account(db_session, login_info.username)
+    if user is None:
+        return make_response(status=500, message='没有此账户')
+    if login_info.password is None:
+        return make_response(status=500, message='密码不能为空')
+    user_info = change_password_by_account(db_session, login_info.password, user)
+    return make_response(status=200, message='密码更新成功')

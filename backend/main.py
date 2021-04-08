@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from app.config.config import settings
 from app.api import router as api_router
+from starlette.middleware.base import BaseHTTPMiddleware
+from app.utils.middlewares import db_session_middleware
 import uvicorn
 
 
@@ -13,6 +15,11 @@ def get_application() -> FastAPI:
         swagger_ui_oauth2_redirect_url="%s/docs/oauth2-redirect" % settings.api_prefix,
         docs_url="%s/docs" % settings.api_prefix,
         redoc_url="%s/redoc" % settings.api_prefix,
+    )
+    # 数据库链接
+    application.add_middleware(
+        middleware_class=BaseHTTPMiddleware,
+        dispatch=db_session_middleware
     )
     # 添加路由
     application.include_router(
