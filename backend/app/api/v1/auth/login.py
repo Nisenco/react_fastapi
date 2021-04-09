@@ -41,7 +41,7 @@ def login(
     m.update(login_session_id.encode("utf-8"))
     login_session_id = m.hexdigest()
     response.set_cookie('login_session_id', login_session_id, expires=60 * 5, samesite="none", secure=True)
-    return {"message": "ok"}
+    return make_response(status=200, message='登录成功')
 
 
 @router.post(

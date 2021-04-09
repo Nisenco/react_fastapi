@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from app.config.config import settings
 from app.api import router as api_router
 from starlette.middleware.base import BaseHTTPMiddleware
@@ -15,6 +16,15 @@ def get_application() -> FastAPI:
         swagger_ui_oauth2_redirect_url="%s/docs/oauth2-redirect" % settings.api_prefix,
         docs_url="%s/docs" % settings.api_prefix,
         redoc_url="%s/redoc" % settings.api_prefix,
+    )
+    # 允许跨域请求
+    application.add_middleware(
+        middleware_class=CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+        expose_headers=["x-auth-token"],
     )
     # 数据库链接
     application.add_middleware(
