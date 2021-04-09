@@ -4,13 +4,34 @@
   overflow: hidden;
   display: flex;
   justify-content: center;
+  .login-title{
+    margin: 30px 0;
+    text-align: center;
+    font-size: 20px;
+    color: #666;
+  }
   .login-form {
     width: 450px;
-    margin-top: 15%;
+    margin-top: 10%;
+    height: 400px;
+    background-color: #fff;
     .ant-form{
-      box-shadow: 10px 8px 5px #ece7e7;
-      border: 1px solid #e9dddd;
-      padding: 20px 20px 20px 0;
+      .ant-form-item{
+        margin-left: 20%;
+      }
+      .ant-input-affix-wrapper,
+      .ant-input:placeholder-shown{
+        border-radius: 4px;
+      }
+      .ant-btn-primary{
+        border-radius: 6px;
+        height: 36px;
+        padding: 4px 28px;
+      }
+      .to-register{
+        color: #1890ff;
+        cursor: pointer;
+      }
     }
   }
 }

@@ -11,7 +11,7 @@
 }
 
 #app,.header{
-  background-color: #fff;
+  background-color: rgb(224, 228, 232);
   min-height: 100vh;
   font-size: calc(10px + 2vmin);
   color: white;

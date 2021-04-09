@@ -1,12 +1,18 @@
-import React, {useContext, createContext, useState} from 'react'
+import React, {useContext, createContext, useState,useEffect} from 'react'
 import {Button, Form, Input, Checkbox} from 'antd'
+import axios from 'axios';
 import './login.scss'
 
-function Index() {
+
+function Index(props) {
+    console.log('props=>', props);
     const layout = {
         labelCol: {span: 7},
         wrapperCol: {span: 17},
     };
+    // const handleSubmit = ()=>{
+    //     axios.post('http://localhost:8008/users/login', )
+    // }
     const tailLayout = {
         wrapperCol: {offset: 7, span: 17},
     };
@@ -18,6 +24,9 @@ function Index() {
     };
     return (<div className="login-container">
         <div className="login-form">
+            <div className="login-title">
+                <h3>X管理系统</h3>
+            </div>
             <Form
                 {...layout}
                 name="basic"
@@ -26,29 +35,32 @@ function Index() {
                 onFinishFailed={onFinishFailed}
             >
                 <Form.Item
-                    label="Username"
-                    name="username"
                     rules={[{required: true, message: 'Please input your username!'}]}
                 >
-                    <Input/>
+                    <Input  placeholder="登录用户名/邮箱"/>
                 </Form.Item>
 
                 <Form.Item
-                    label="Password"
-                    name="password"
                     rules={[{required: true, message: 'Please input your password!'}]}
                 >
-                    <Input.Password/>
+                    <Input.Password placeholder="密码"/>
                 </Form.Item>
 
-                <Form.Item {...tailLayout} name="remember" valuePropName="checked">
+                <Form.Item name="remember" valuePropName="checked">
                     <Checkbox>Remember me</Checkbox>
                 </Form.Item>
 
                 <Form.Item {...tailLayout}>
                     <Button type="primary" htmlType="submit">
-                        Submit
+                        登录
                     </Button>
+                </Form.Item>
+                <Form.Item>
+                    没有账户，
+                    <span
+                        class="to-register"
+                        onClick={()=>props.history.push('/register')}
+                    >立即注册</span>
                 </Form.Item>
             </Form>
         </div>
