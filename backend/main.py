@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.config.config import settings
 from app.api import router as api_router
 from starlette.middleware.base import BaseHTTPMiddleware
-from app.utils.middlewares import db_session_middleware
+from app.utils.middlewares import db_session_middleware, process_cookies_record_middleware
 import uvicorn
 
 
@@ -30,6 +30,11 @@ def get_application() -> FastAPI:
     application.add_middleware(
         middleware_class=BaseHTTPMiddleware,
         dispatch=db_session_middleware
+    )
+    # 处理cookie
+    application.add_middleware(
+        middleware_class=BaseHTTPMiddleware,
+        dispatch=process_cookies_record_middleware
     )
     # 添加路由
     application.include_router(
