@@ -1,10 +1,14 @@
-import React, {useContext, createContext, useState,useEffect} from 'react'
-import {Button, Form, Input, Checkbox,message} from 'antd'
+import React from 'react';
+import {Button, Form, Input, Checkbox,message} from 'antd';
+import {connect} from 'react-redux';
+import{withRouter} from 'react-router';
 import axios from 'axios';
 import './login.scss'
 
 
-function Index(props) {
+function Login(props) {
+    console.log(props);
+    const {setLoginStatus} = props
     const layout = {
         labelCol: {span: 7},
         wrapperCol: {span: 17},
@@ -15,7 +19,8 @@ function Index(props) {
             password:values.password
         }).then(({data:{status,msg}}) => {
             if(status == 200){
-                props.history.push('/')
+                setLoginStatus({isLogin:true});
+                props.history.push('/');
             }else {
                 message.error(msg);
             }
@@ -30,7 +35,6 @@ function Index(props) {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
-        console.log(props)
     return (<div className="login-container">
         <div className="login-form">
             <div className="login-title">
@@ -75,8 +79,15 @@ function Index(props) {
                 </Form.Item>
             </Form>
         </div>
-
     </div>)
 }
 
-export default Index
+const mapStateToProps = (state)=>{
+    return state.loginReducer;
+}
+const mapDispatchToProps = (dispatch)=>{
+    return {
+        setLoginStatus: payload=>dispatch({type:'SET_LOGIN',payload}),
+    }
+}
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Login))

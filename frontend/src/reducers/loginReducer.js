@@ -3,7 +3,7 @@ const initialState = {
 };
 const loginReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "increase":
+        case "SET_LOGIN":
             return {
                 ...state,
                 ...action.payload

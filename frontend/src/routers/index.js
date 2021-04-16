@@ -16,16 +16,17 @@ function render_router(routers) {
 }
 
 function RouterIndex(props) {
+    // console.log(props,'999999');
     return <Router>
         <Switch>
             <Route path="/login" component={Login}/>
             <Route path="/register" component={Register}/>
-            {render_router(route_config)}
-            {/*{props.isLogin ?*/}
-            {/*    render_router(route_config) : <Redirect to="/login"/>*/}
-            {/*}*/}
+            {/*{render_router(route_config)}*/}
+            {props.isLogin ?
+                render_router(route_config) : <Redirect to="/login"/>
+            }
         </Switch>
     </Router>
 }
 
-export default RouterIndex
+export default RouterIndex;

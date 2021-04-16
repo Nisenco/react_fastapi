@@ -1,7 +1,6 @@
 const initialState = {
-    dataSource: [],
     loading: true,
-    id: '',
+    count: 0,
 };
 const homeReducer = (state = initialState, action) => {
     switch (action.type) {
