@@ -14,7 +14,6 @@ function Index(props) {
             username:values.username,
             password:values.password
         }).then(({data:{status,msg}}) => {
-            // console.log(data,'data');
             if(status == 200){
                 props.history.push('/')
             }else {
@@ -31,6 +30,7 @@ function Index(props) {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+        console.log(props)
     return (<div className="login-container">
         <div className="login-form">
             <div className="login-title">

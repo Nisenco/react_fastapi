@@ -10,8 +10,8 @@ import Register from '../pages/register'
 import route_config from './router_config'
 
 function render_router(routers) {
-    return routers.map(({path, component}) => {
-        return <Route path={path} component={component}/>
+    return routers.map(({path, component,key}) => {
+        return <Route key={key} path={path} component={component}/>
     })
 }
 
@@ -20,9 +20,10 @@ function RouterIndex(props) {
         <Switch>
             <Route path="/login" component={Login}/>
             <Route path="/register" component={Register}/>
-            {props.isLogin ?
-                render_router(route_config) : <Redirect to="/login"/>
-            }
+            {render_router(route_config)}
+            {/*{props.isLogin ?*/}
+            {/*    render_router(route_config) : <Redirect to="/login"/>*/}
+            {/*}*/}
         </Switch>
     </Router>
 }
