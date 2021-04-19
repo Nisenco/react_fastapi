@@ -2,19 +2,18 @@ import React from 'react';
 import {Button, Form, Input, Checkbox,message} from 'antd';
 import {connect} from 'react-redux';
 import{withRouter} from 'react-router';
-import axios from 'axios';
+import axios from '../../utils/requests';
 import './login.scss'
 
 
 function Login(props) {
-    console.log(props);
     const {setLoginStatus} = props
     const layout = {
         labelCol: {span: 7},
         wrapperCol: {span: 17},
     };
     const handleSubmit = (values)=>{
-        axios.post('http://localhost:8008/api/login',{
+        axios.post('/login',{
             username:values.username,
             password:values.password
         }).then(({data:{status,msg}}) => {

@@ -1,5 +1,7 @@
-import React, {useState} from 'react';
-import {Layout, Menu, Breadcrumb} from "antd"
+import React, {useState, useEffect} from 'react';
+import {Layout, Menu, Breadcrumb} from "antd";
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
 import {
     DesktopOutlined,
     PieChartOutlined,
@@ -11,7 +13,13 @@ import {
 const {Header, Content, Footer, Sider} = Layout;
 const {SubMenu} = Menu;
 
-function LauoutIndex(props) {
+function LayoutIndex(props) {
+    const {layoutProps} = props;
+    useEffect(() => {
+        if (!layoutProps.isLogin) {
+            props.history.push('/login');
+        }
+    }, [layoutProps.isLogin])
     const [collapsed, SetCollapsed] = useState(false);
     const onCollapse = collapsed => {
         console.log(collapsed);
@@ -44,7 +52,7 @@ function LauoutIndex(props) {
             </Sider>
             <Layout className="site-layout">
                 <Header className="site-layout-background" style={{padding: 0}}>
-                    <div style={{float:'right',color:'white',marginRight:20}}>Nicosen</div>
+                    <div style={{float: 'right', color: 'white', marginRight: 20}}>Nicosen</div>
                 </Header>
                 <Content style={{margin: '0 16px'}}>
                     {/*<Breadcrumb style={{margin: '16px 0'}}>*/}
@@ -62,4 +70,7 @@ function LauoutIndex(props) {
     </div>)
 }
 
-export default LauoutIndex
+const mapStateToProps = (state) => {
+    return {layoutProps: state.loginReducer}
+}
+export default withRouter(connect(mapStateToProps)(LayoutIndex))

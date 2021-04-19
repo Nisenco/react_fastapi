@@ -6,7 +6,6 @@ import {Button} from 'antd';
 import './home.scss'
 
 function Home(props) {
-    console.log(props,'props++');
     const [count, setCount] = useState(0);
     return <div className="home-container">
         <LayoutIndex>
@@ -18,9 +17,9 @@ function Home(props) {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
-
+    return state.homeReducer
 };
 const mapDispatchToProps = () => {
+    return {}
 };
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home))
