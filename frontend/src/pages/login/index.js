@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, Form, Input, Checkbox,message} from 'antd';
 import {connect} from 'react-redux';
 import{withRouter} from 'react-router';
-import axios from '../../utils/requests';
+import axios from 'mAxios';
 import './login.scss'
 
 
